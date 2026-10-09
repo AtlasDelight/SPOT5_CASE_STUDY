@@ -1,0 +1,553 @@
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 2, exhaustive) 3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 4 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 3, fast)       11 del vars, 7 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 4 upgd conss, 0 impls, 0 clqs, 0 implints
+   (0.0s) probing cycle finished: starting next cycle
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) no symmetry present (symcode time: 0.00)
+presolving (4 rounds: 4 fast, 2 medium, 2 exhaustive):
+ 11 deleted vars, 8 deleted constraints, 0 added constraints, 1 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 0 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 1 variables (1 bin, 0 int, 0 cont) and 0 constraints
+transformed objective value is always integral (scale: 20)
+Presolving Time: 0.00
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+t 0.0s|     1 |     0 |     0 |     - | trivial|   0 |   1 |   0 |   0 |   0 |  0 |   0 |   0 | 7.000000e+01 | 7.000000e+01 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +7.00000000000000e+01 (2 solutions)
+Dual Bound         : +7.00000000000000e+01
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 2, exhaustive) 3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 4 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 3, fast)       11 del vars, 7 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 4 upgd conss, 0 impls, 0 clqs, 0 implints
+   (0.0s) probing cycle finished: starting next cycle
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) no symmetry present (symcode time: 0.00)
+presolving (4 rounds: 4 fast, 2 medium, 2 exhaustive):
+ 11 deleted vars, 8 deleted constraints, 0 added constraints, 1 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 0 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 1 variables (1 bin, 0 int, 0 cont) and 0 constraints
+transformed objective value is always integral (scale: 20)
+Presolving Time: 0.00
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+t 0.0s|     1 |     0 |     0 |     - | trivial|   0 |   1 |   0 |   0 |   0 |  0 |   0 |   0 | 7.000000e+01 | 7.000000e+01 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +7.00000000000000e+01 (2 solutions)
+Dual Bound         : +7.00000000000000e+01
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       3 del vars, 3 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 1 chg coeffs, 0 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 2, exhaustive) 3 del vars, 3 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 1 chg coeffs, 5 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 3, fast)       7 del vars, 5 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 1 chg coeffs, 5 upgd conss, 0 impls, 2 clqs, 0 implints
+presolving (4 rounds: 4 fast, 2 medium, 2 exhaustive):
+ 12 deleted vars, 8 deleted constraints, 0 added constraints, 1 tightened bounds, 0 added holes, 2 changed sides, 1 changed coefficients
+ 0 implications, 0 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+transformed 1/2 original solutions to the transformed problem space
+presolving solved problem
+Presolving Time: 0.00
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 0
+Primal Bound       : +6.00000000000000e+01 (2 solutions)
+Dual Bound         : +6.00000000000000e+01
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       3 del vars, 3 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 1 chg coeffs, 0 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 2, exhaustive) 3 del vars, 3 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 1 chg coeffs, 5 upgd conss, 0 impls, 4 clqs, 0 implints
+(round 3, fast)       7 del vars, 5 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 1 chg coeffs, 5 upgd conss, 0 impls, 2 clqs, 0 implints
+presolving (4 rounds: 4 fast, 2 medium, 2 exhaustive):
+ 12 deleted vars, 8 deleted constraints, 0 added constraints, 1 tightened bounds, 0 added holes, 2 changed sides, 1 changed coefficients
+ 0 implications, 0 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+transformed 1/2 original solutions to the transformed problem space
+presolving solved problem
+Presolving Time: 0.00
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 0
+Primal Bound       : +6.00000000000000e+01 (2 solutions)
+Dual Bound         : +6.00000000000000e+01
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 9 clqs, 0 implints
+(round 2, exhaustive) 3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 9 upgd conss, 0 impls, 9 clqs, 0 implints
+(round 3, medium)     5 del vars, 4 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 2 chg coeffs, 9 upgd conss, 0 impls, 9 clqs, 0 implints
+   (0.0s) probing cycle finished: starting next cycle
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) symmetry computation finished: 1 generators found (max: 1500, log10 of symmetry group size: 0.30) (symcode time: 0.00)
+dynamic symmetry handling statistics:
+   orbitopal reduction:       no components
+   orbital reduction:         no components
+   lexicographic reduction:    1 permutations with support sizes 4
+handled 1 out of 1 symmetry components
+presolving (4 rounds: 4 fast, 3 medium, 2 exhaustive):
+ 5 deleted vars, 4 deleted constraints, 0 added constraints, 1 tightened bounds, 0 added holes, 2 changed sides, 2 changed coefficients
+ 0 implications, 9 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 7 variables (7 bin, 0 int, 0 cont) and 9 constraints
+      9 constraints of type <setppc>
+transformed objective value is always integral (scale: 10)
+Presolving Time: 0.00
+transformed 1/1 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+p 0.0s|     1 |     0 |     0 |     - |  clique|   0 |   7 |   9 |   9 |   0 |  0 |   0 |   0 | 1.700000e+02 | 5.000000e+01 | 240.00%| unknown
+  0.0s|     1 |     0 |     8 |     - |   981k |   0 |   7 |   9 |   9 |   0 |  0 |   0 |   0 | 6.500000e+01 | 5.000000e+01 |  30.00%| unknown
+  0.0s|     1 |     0 |     9 |     - |  1026k |   0 |   7 |   9 |  10 |   1 |  1 |   0 |   0 | 6.000000e+01 | 5.000000e+01 |  20.00%| unknown
+d 0.0s|     1 |     0 |     9 |     - |farkasdi|   0 |   7 |   9 |  10 |   0 |  2 |   0 |   0 | 6.000000e+01 | 6.000000e+01 |   0.00%| unknown
+  0.0s|     1 |     0 |     9 |     - |  1026k |   0 |   7 |   9 |  10 |   1 |  2 |   0 |   0 | 6.000000e+01 | 6.000000e+01 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +6.00000000000000e+01 (5 solutions)
+Dual Bound         : +6.00000000000000e+01
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 9 clqs, 0 implints
+(round 2, exhaustive) 3 del vars, 4 del conss, 0 add conss, 1 chg bounds, 0 chg sides, 0 chg coeffs, 9 upgd conss, 0 impls, 9 clqs, 0 implints
+(round 3, medium)     5 del vars, 4 del conss, 0 add conss, 1 chg bounds, 2 chg sides, 2 chg coeffs, 9 upgd conss, 0 impls, 9 clqs, 0 implints
+   (0.0s) probing cycle finished: starting next cycle
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) symmetry computation finished: 1 generators found (max: 1500, log10 of symmetry group size: 0.30) (symcode time: 0.00)
+dynamic symmetry handling statistics:
+   orbitopal reduction:       no components
+   orbital reduction:         no components
+   lexicographic reduction:    1 permutations with support sizes 4
+handled 1 out of 1 symmetry components
+presolving (4 rounds: 4 fast, 3 medium, 2 exhaustive):
+ 5 deleted vars, 4 deleted constraints, 0 added constraints, 1 tightened bounds, 0 added holes, 2 changed sides, 2 changed coefficients
+ 0 implications, 9 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 7 variables (7 bin, 0 int, 0 cont) and 9 constraints
+      9 constraints of type <setppc>
+transformed objective value is always integral (scale: 10)
+Presolving Time: 0.00
+transformed 1/1 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+p 0.0s|     1 |     0 |     0 |     - |  clique|   0 |   7 |   9 |   9 |   0 |  0 |   0 |   0 | 1.700000e+02 | 5.000000e+01 | 240.00%| unknown
+  0.0s|     1 |     0 |     8 |     - |   981k |   0 |   7 |   9 |   9 |   0 |  0 |   0 |   0 | 6.500000e+01 | 5.000000e+01 |  30.00%| unknown
+  0.0s|     1 |     0 |     9 |     - |  1026k |   0 |   7 |   9 |  10 |   1 |  1 |   0 |   0 | 6.000000e+01 | 5.000000e+01 |  20.00%| unknown
+d 0.0s|     1 |     0 |     9 |     - |farkasdi|   0 |   7 |   9 |  10 |   0 |  2 |   0 |   0 | 6.000000e+01 | 6.000000e+01 |   0.00%| unknown
+  0.0s|     1 |     0 |     9 |     - |  1026k |   0 |   7 |   9 |  10 |   1 |  2 |   0 |   0 | 6.000000e+01 | 6.000000e+01 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +6.00000000000000e+01 (5 solutions)
+Dual Bound         : +6.00000000000000e+01
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       18 del vars, 33 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 76 clqs, 0 implints
+(round 2, exhaustive) 18 del vars, 33 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 77 upgd conss, 0 impls, 76 clqs, 0 implints
+(round 3, fast)       22 del vars, 37 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 77 upgd conss, 0 impls, 72 clqs, 0 implints
+(round 4, fast)       24 del vars, 39 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 77 upgd conss, 0 impls, 70 clqs, 0 implints
+   (0.0s) probing: 51/56 (91.1%) - 0 fixings, 0 aggregations, 0 implications, 0 bound changes
+   (0.0s) probing aborted: 50/50 successive totally useless probings
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) symmetry computation finished: 3 generators found (max: 1500, log10 of symmetry group size: 0.90) (symcode time: 0.00)
+dynamic symmetry handling statistics:
+   orbitopal reduction:       no components
+   orbital reduction:         no components
+   lexicographic reduction:    3 permutations with support sizes 10, 8, 6
+handled 3 out of 3 symmetry components
+presolving (5 rounds: 5 fast, 2 medium, 2 exhaustive):
+ 24 deleted vars, 39 deleted constraints, 0 added constraints, 6 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 70 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 56 variables (56 bin, 0 int, 0 cont) and 71 constraints
+      1 constraints of type <knapsack>
+     70 constraints of type <setppc>
+transformed objective value is always integral (scale: 10)
+Presolving Time: 0.00
+transformed 1/1 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+p 0.0s|     1 |     0 |     1 |     - |  clique|   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 1.140000e+03 | 3.700000e+02 | 208.11%| unknown
+  0.0s|     1 |     0 |    67 |     - |  2255k |   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 4.000000e+02 | 3.700000e+02 |   8.11%| unknown
+r 0.0s|     1 |     0 |    67 |     - |rounding|   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 4.000000e+02 | 3.900000e+02 |   2.56%| unknown
+r 0.0s|     1 |     0 |    67 |     - |shifting|   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 4.000000e+02 | 4.000000e+02 |   0.00%| unknown
+  0.0s|     1 |     0 |    67 |     - |  2259k |   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 4.000000e+02 | 4.000000e+02 |   0.00%| unknown
+  0.0s|     1 |     0 |    67 |     - |  2259k |   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 4.000000e+02 | 4.000000e+02 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.01
+Solving Nodes      : 1
+Primal Bound       : +4.00000000000000e+02 (5 solutions)
+Dual Bound         : +4.00000000000000e+02
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       18 del vars, 33 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 76 clqs, 0 implints
+(round 2, exhaustive) 18 del vars, 33 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 77 upgd conss, 0 impls, 76 clqs, 0 implints
+(round 3, fast)       22 del vars, 37 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 77 upgd conss, 0 impls, 72 clqs, 0 implints
+(round 4, fast)       24 del vars, 39 del conss, 0 add conss, 6 chg bounds, 0 chg sides, 0 chg coeffs, 77 upgd conss, 0 impls, 70 clqs, 0 implints
+   (0.0s) probing: 51/56 (91.1%) - 0 fixings, 0 aggregations, 0 implications, 0 bound changes
+   (0.0s) probing aborted: 50/50 successive totally useless probings
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) symmetry computation finished: 3 generators found (max: 1500, log10 of symmetry group size: 0.90) (symcode time: 0.00)
+dynamic symmetry handling statistics:
+   orbitopal reduction:       no components
+   orbital reduction:         no components
+   lexicographic reduction:    3 permutations with support sizes 10, 8, 6
+handled 3 out of 3 symmetry components
+presolving (5 rounds: 5 fast, 2 medium, 2 exhaustive):
+ 24 deleted vars, 39 deleted constraints, 0 added constraints, 6 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 70 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 56 variables (56 bin, 0 int, 0 cont) and 71 constraints
+      1 constraints of type <knapsack>
+     70 constraints of type <setppc>
+transformed objective value is always integral (scale: 3)
+Presolving Time: 0.00
+transformed 1/1 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+p 0.0s|     1 |     0 |     1 |     - |  clique|   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 9.480000e+02 | 3.330000e+02 | 184.68%| unknown
+  0.0s|     1 |     0 |    69 |     - |  2255k |   0 |  56 |  71 |  71 |   0 |  0 |   0 |   0 | 3.375000e+02 | 3.330000e+02 |   1.35%| unknown
+  0.0s|     1 |     0 |    69 |     - |  2497k |   0 |  56 |  72 |  51 |   0 |  0 |   1 |   0 | 3.375000e+02 | 3.330000e+02 |   1.35%| unknown
+  0.0s|     1 |     0 |    71 |     - |  2559k |   0 |  56 |  52 |  49 |   2 |  1 |   1 |   0 | 3.330000e+02 | 3.330000e+02 |   0.00%| unknown
+  0.0s|     1 |     0 |    71 |     - |  2559k |   0 |  56 |  52 |  49 |   2 |  1 |   1 |   0 | 3.330000e+02 | 3.330000e+02 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.01
+Solving Nodes      : 1
+Primal Bound       : +3.33000000000000e+02 (4 solutions)
+Dual Bound         : +3.33000000000000e+02
+Gap                : 0.00 %
+feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       42 del vars, 109 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 154 clqs, 0 implints
+(round 2, exhaustive) 42 del vars, 109 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 154 clqs, 0 implints
+(round 3, fast)       46 del vars, 113 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 150 clqs, 0 implints
+(round 4, fast)       48 del vars, 115 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 148 clqs, 0 implints
+   (0.0s) probing: 51/112 (45.5%) - 0 fixings, 0 aggregations, 0 implications, 0 bound changes
+   (0.0s) probing aborted: 50/50 successive totally useless probings
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) symmetry computation finished: 1 generators found (max: 1500, log10 of symmetry group size: 0.30) (symcode time: 0.00)
+dynamic symmetry handling statistics:
+   orbitopal reduction:       no components
+   orbital reduction:         no components
+   lexicographic reduction:   no permutations
+handled 1 out of 1 symmetry components
+(round 5, exhaustive) 48 del vars, 115 del conss, 1 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 149 clqs, 0 implints
+(round 6, exhaustive) 48 del vars, 115 del conss, 1 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 156 upgd conss, 0 impls, 149 clqs, 0 implints
+presolving (7 rounds: 7 fast, 4 medium, 4 exhaustive):
+ 48 deleted vars, 115 deleted constraints, 1 added constraints, 14 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 149 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 112 variables (112 bin, 0 int, 0 cont) and 150 constraints
+      1 constraints of type <knapsack>
+    149 constraints of type <setppc>
+Presolving Time: 0.00
+transformed 1/1 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+t 0.0s|     1 |     0 |     0 |     - | trivial|   0 | 112 | 150 |   0 |   0 |  0 |   0 |   0 | 1.569616e+03 | 5.994000e+00 |  Large | unknown
+p 0.0s|     1 |     0 |     0 |     - |  clique|   0 | 112 | 150 | 150 |   0 |  0 |   0 |   0 | 1.569616e+03 | 6.232836e+02 | 151.83%| unknown
+p 0.0s|     1 |     0 |     0 |     - | vbounds|   0 | 112 | 150 | 150 |   0 |  0 |   0 |   0 | 1.569616e+03 | 6.661386e+02 | 135.63%| unknown
+i 0.0s|     1 |     0 |     0 |     - |  oneopt|   0 | 112 | 150 | 150 |   0 |  0 |   0 |   0 | 1.569616e+03 | 6.721326e+02 | 133.53%| unknown
+  0.0s|     1 |     0 |   138 |     - |  3266k |   0 | 112 | 150 | 150 |   0 |  0 |   0 |   0 | 6.917576e+02 | 6.721326e+02 |   2.92%| unknown
+  0.0s|     1 |     0 |   138 |     - |  3272k |   0 | 112 | 150 | 140 |   0 |  0 |   0 |   0 | 6.917576e+02 | 6.721326e+02 |   2.92%| unknown
+  0.0s|     1 |     0 |   149 |     - |  3334k |   0 | 112 | 140 | 146 |   6 |  1 |   0 |   0 | 6.782740e+02 | 6.721326e+02 |   0.91%| unknown
+  0.0s|     1 |     0 |   149 |     - |  3339k |   0 | 112 | 140 | 133 |   6 |  1 |   0 |   0 | 6.782740e+02 | 6.721326e+02 |   0.91%| unknown
+  0.0s|     1 |     0 |   151 |     - |  3374k |   0 | 112 | 127 | 136 |   9 |  2 |   0 |   0 | 6.781212e+02 | 6.721326e+02 |   0.89%| unknown
+d 0.0s|     1 |     0 |   151 |     - |farkasdi|   0 | 112 | 127 | 136 |   0 |  3 |   0 |   0 | 6.781212e+02 | 6.781212e+02 |   0.00%| unknown
+  0.0s|     1 |     0 |   151 |     - |  3376k |   0 | 112 | 127 | 136 |   9 |  3 |   0 |   0 | 6.781212e+02 | 6.781212e+02 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.01
+Solving Nodes      : 1
+Primal Bound       : +6.78121200000000e+02 (8 solutions)
+Dual Bound         : +6.78121200000000e+02
+Gap                : 0.00 %
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba1 | MODE : OPTIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 70.0
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 230)
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 150)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 350)
+Image2 (Type 1) selectionnée et assignée à 0 (debut à 220)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba1 | MODE : PESSIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 70.0
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 230)
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 150)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 350)
+Image2 (Type 1) selectionnée et assignée à 0 (debut à 220)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba2 | MODE : OPTIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 60.0
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 150)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 350)
+Image2 (Type 1) selectionnée et assignée à 0 (debut à 220)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba2 | MODE : PESSIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 60.0
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 150)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 350)
+Image2 (Type 1) selectionnée et assignée à 0 (debut à 220)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba3 | MODE : OPTIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 60.0
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 150)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 350)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 320)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba3 | MODE : PESSIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 60.0
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 150)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 350)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 320)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba4 | MODE : OPTIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 400.0
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image3 (Type 2) selectionnée et assignée à 0 (debut à 200)
+Image3 (Type 2) selectionnée et assignée à 2 (debut à 400)
+Image5 (Type 1) selectionnée et assignée à 1 (debut à 330)
+Image6 (Type 1) selectionnée et assignée à 0 (debut à 250)
+Image8 (Type 1) selectionnée et assignée à 0 (debut à 290)
+Image9 (Type 1) selectionnée et assignée à 1 (debut à 400)
+Image12 (Type 1) selectionnée et assignée à 1 (debut à 430)
+Image13 (Type 2) selectionnée et assignée à 0 (debut à 400)
+Image13 (Type 2) selectionnée et assignée à 2 (debut à 600)
+Image14 (Type 1) selectionnée et assignée à 1 (debut à 520)
+Image16 (Type 1) selectionnée et assignée à 0 (debut à 450)
+Image18 (Type 1) selectionnée et assignée à 1 (debut à 570)
+Image19 (Type 1) selectionnée et assignée à 0 (debut à 500)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba4 | MODE : PESSIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 333.0000000000001
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image4 (Type 1) selectionnée et assignée à 1 (debut à 320)
+Image5 (Type 1) selectionnée et assignée à 0 (debut à 230)
+Image6 (Type 1) selectionnée et assignée à 1 (debut à 350)
+Image8 (Type 1) selectionnée et assignée à 0 (debut à 290)
+Image9 (Type 1) selectionnée et assignée à 1 (debut à 400)
+Image10 (Type 1) selectionnée et assignée à 2 (debut à 500)
+Image12 (Type 1) selectionnée et assignée à 0 (debut à 330)
+Image14 (Type 1) selectionnée et assignée à 0 (debut à 420)
+Image15 (Type 1) selectionnée et assignée à 1 (debut à 530)
+Image16 (Type 1) selectionnée et assignée à 0 (debut à 450)
+Image18 (Type 1) selectionnée et assignée à 1 (debut à 570)
+Image19 (Type 1) selectionnée et assignée à 0 (debut à 500)
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba5 | MODE : OPTIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 678.1212
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 130)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 330)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image4 (Type 1) selectionnée et assignée à 0 (debut à 220)
+Image5 (Type 1) selectionnée et assignée à 1 (debut à 330)
+Image6 (Type 1) selectionnée et assignée à 0 (debut à 250)
+Image8 (Type 1) selectionnée et assignée à 1 (debut à 390)
+Image9 (Type 1) selectionnée et assignée à 0 (debut à 300)
+Image12 (Type 1) selectionnée et assignée à 0 (debut à 330)
+Image14 (Type 1) selectionnée et assignée à 1 (debut à 520)
+Image15 (Type 1) selectionnée et assignée à 0 (debut à 430)
+Image16 (Type 1) selectionnée et assignée à 1 (debut à 550)
+Image18 (Type 1) selectionnée et assignée à 0 (debut à 470)
+Image19 (Type 1) selectionnée et assignée à 1 (debut à 600)
+Image20 (Type 2) selectionnée et assignée à 0 (debut à 500)
+Image20 (Type 2) selectionnée et assignée à 2 (debut à 700)
+Image22 (Type 1) selectionnée et assignée à 0 (debut à 550)
+Image24 (Type 1) selectionnée et assignée à 0 (debut à 610)
+Image25 (Type 1) selectionnée et assignée à 1 (debut à 730)
+Image26 (Type 1) selectionnée et assignée à 0 (debut à 650)
+Image28 (Type 1) selectionnée et assignée à 0 (debut à 690)
+Image29 (Type 1) selectionnée et assignée à 1 (debut à 800)
+Image32 (Type 1) selectionnée et assignée à 0 (debut à 730)
+Image34 (Type 1) selectionnée et assignée à 0 (debut à 820)
+Image35 (Type 1) selectionnée et assignée à 1 (debut à 930)
+Image36 (Type 1) selectionnée et assignée à 0 (debut à 850)
+Image38 (Type 1) selectionnée et assignée à 1 (debut à 970)
+Image39 (Type 2) selectionnée et assignée à 0 (debut à 910)
+Image39 (Type 2) selectionnée et assignée à 2 (debut à 1110)feasible solution found by trivial heuristic after 0.0 seconds, objective value 0.000000e+00
+presolving:
+(round 1, fast)       42 del vars, 109 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 0 upgd conss, 0 impls, 154 clqs, 0 implints
+(round 2, exhaustive) 42 del vars, 109 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 154 clqs, 0 implints
+(round 3, fast)       46 del vars, 113 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 150 clqs, 0 implints
+(round 4, fast)       48 del vars, 115 del conss, 0 add conss, 14 chg bounds, 0 chg sides, 0 chg coeffs, 155 upgd conss, 0 impls, 148 clqs, 0 implints
+   (0.0s) probing: 51/112 (45.5%) - 0 fixings, 0 aggregations, 0 implications, 0 bound changes
+   (0.0s) probing aborted: 50/50 successive totally useless probings
+   (0.0s) symmetry computation started: requiring (bin +, int +, cont +), (fixed: bin -, int -, cont -)
+   (0.0s) no symmetry present (symcode time: 0.00)
+presolving (5 rounds: 5 fast, 2 medium, 2 exhaustive):
+ 48 deleted vars, 115 deleted constraints, 0 added constraints, 14 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 148 cliques, 0 implied integral variables (0 bin, 0 int, 0 cont)
+presolved problem has 112 variables (112 bin, 0 int, 0 cont) and 149 constraints
+      1 constraints of type <knapsack>
+    148 constraints of type <setppc>
+Presolving Time: 0.00
+transformed 1/1 original solutions to the transformed problem space
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+p 0.0s|     1 |     0 |     1 |     - |  clique|   0 | 112 | 149 | 149 |   0 |  0 |   0 |   0 | 1.274376e+03 | 5.450604e+02 | 133.80%| unknown
+p 0.0s|     1 |     0 |     2 |     - | vbounds|   0 | 112 | 149 | 149 |   0 |  0 |   0 |   0 | 1.274376e+03 | 5.485554e+02 | 132.31%| unknown
+  0.0s|     1 |     0 |   135 |     - |  2479k |   0 | 112 | 149 | 149 |   0 |  0 |   0 |   0 | 5.648845e+02 | 5.485554e+02 |   2.98%| unknown
+  0.0s|     1 |     0 |   135 |     - |  2483k |   0 | 112 | 149 | 143 |   0 |  0 |   0 |   0 | 5.648845e+02 | 5.485554e+02 |   2.98%| unknown
+  0.0s|     1 |     0 |   152 |     - |  2570k |   0 | 112 | 143 | 150 |   7 |  1 |   0 |   0 | 5.536485e+02 | 5.485554e+02 |   0.93%| unknown
+r 0.0s|     1 |     0 |   152 |     - |rounding|   0 | 112 | 144 | 126 |   7 |  1 |   1 |   0 | 5.536485e+02 | 5.509512e+02 |   0.49%| unknown
+  0.0s|     1 |     0 |   152 |     - |  2826k |   0 | 112 | 144 | 126 |   7 |  1 |   1 |   0 | 5.536485e+02 | 5.509512e+02 |   0.49%| unknown
+  0.0s|     1 |     0 |   152 |     - |  2826k |   0 | 112 | 144 | 110 |   7 |  1 |   1 |   0 | 5.536485e+02 | 5.509512e+02 |   0.49%| unknown
+  0.0s|     1 |     0 |   154 |     - |  2846k |   0 | 112 | 104 | 113 |  10 |  2 |   1 |   0 | 5.536458e+02 | 5.509512e+02 |   0.49%| unknown
+d 0.0s|     1 |     0 |   154 |     - |farkasdi|   0 | 112 | 104 | 113 |   0 |  3 |   1 |   0 | 5.536458e+02 | 5.536458e+02 |   0.00%| unknown
+  0.0s|     1 |     0 |   154 |     - |  2846k |   0 | 112 | 104 | 113 |  10 |  3 |   1 |   0 | 5.536458e+02 | 5.536458e+02 |   0.00%| unknown
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.01
+Solving Nodes      : 1
+Primal Bound       : +5.53645800000000e+02 (6 solutions)
+Dual Bound         : +5.53645800000000e+02
+Gap                : 0.00 %
+
+--------------------------------------------------
+
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba5 | MODE : PESSIMISTE
+======================================================================
+
+
+--- SYNTHESE DES RESULTATS ---
+Statut final : optimal
+
+
+Problème resolu, valeur de l'objectif 553.6458
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 130)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 330)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image4 (Type 1) selectionnée et assignée à 0 (debut à 220)
+Image5 (Type 1) selectionnée et assignée à 1 (debut à 330)
+Image6 (Type 1) selectionnée et assignée à 0 (debut à 250)
+Image8 (Type 1) selectionnée et assignée à 0 (debut à 290)
+Image9 (Type 1) selectionnée et assignée à 1 (debut à 400)
+Image11 (Type 2) selectionnée et assignée à 0 (debut à 320)
+Image11 (Type 2) selectionnée et assignée à 2 (debut à 520)
+Image12 (Type 1) selectionnée et assignée à 1 (debut à 430)
+Image14 (Type 1) selectionnée et assignée à 1 (debut à 520)
+Image15 (Type 1) selectionnée et assignée à 0 (debut à 430)
+Image16 (Type 1) selectionnée et assignée à 1 (debut à 550)
+Image18 (Type 1) selectionnée et assignée à 0 (debut à 470)
+Image19 (Type 1) selectionnée et assignée à 1 (debut à 600)
+Image20 (Type 2) selectionnée et assignée à 0 (debut à 500)
+Image20 (Type 2) selectionnée et assignée à 2 (debut à 700)
+Image22 (Type 1) selectionnée et assignée à 0 (debut à 550)
+Image24 (Type 1) selectionnée et assignée à 0 (debut à 610)
+Image25 (Type 1) selectionnée et assignée à 1 (debut à 730)
+Image26 (Type 1) selectionnée et assignée à 0 (debut à 650)
+Image28 (Type 1) selectionnée et assignée à 0 (debut à 690)
+Image29 (Type 1) selectionnée et assignée à 1 (debut à 800)
+Image32 (Type 1) selectionnée et assignée à 0 (debut à 730)
+Image34 (Type 1) selectionnée et assignée à 0 (debut à 820)
+Image35 (Type 1) selectionnée et assignée à 1 (debut à 930)
+Image36 (Type 1) selectionnée et assignée à 0 (debut à 850)
+Image38 (Type 1) selectionnée et assignée à 1 (debut à 970)
+--------------------------------------------------
+
+
