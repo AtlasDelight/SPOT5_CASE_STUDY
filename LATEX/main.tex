@@ -1,3 +1,5 @@
+
+\UseRawInputEncoding
 \documentclass[8pt]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{caption}
@@ -8,6 +10,7 @@
 
 \usepackage[french]{babel} 
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
 \usepackage{amsfonts}
 \usepackage{hyperref}
@@ -16,6 +19,9 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
+ %\usepackage [latin1]{inputenc}
+ \usepackage[utf8]{inputenc}
+
 
 % Définition des couleurs pour le style Python
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -99,178 +105,174 @@
 %===================================================================================%
 \section{Introduction}
 
-    L'objectif de cette étude est de modéliser mathématiquement, sous la forme d'un programme linéaire, le plan quotidien d'acquisition d'images du satellite d'observation terrestre SPOT 5 afin de maximiser le gain financier espéré, en respectant les strictes contraintes physiques du système (capacité mémoire, cinématique des miroirs) tout en intégrant les probabilités imprécises liées aux risques météorologiques et aux pannes matérielles.
+    L'objectif de cette étude est de modéliser mathématiquement, sous la forme d'un programme linéaire, le plan quotidien d'acquisition d'images du satellite d'observation terrestre SPOT 5 afin de maximiser le gain financier espéré, en respectant les strictes contraintes physiques du système (capacité mémoire, cinématique des miroirs) tout en intégrant les probabilités imprécises liées aux risques météorologiques et aux pannes matérielles. Le code est les résultats de ce projet sont disponibles sur le Github \url{https://github.com/AtlasDelight/SPOT5_CASE_STUDY}.
 
 
 
 %===================================================================================%
-\newpage
-\section{Implémentation des données}
 
-\subsection{Paramètres}
-\subsubsection{Paramètres statiques}
+\section{Modélisation du Problème (PLNE)}
 
+Afin de formuler ce problème sous la forme d'un Programme Linéaire en Nombres Entiers (PLNE), nous définissons les paramètres de l'environnement, les variables de décision du modèle, ainsi que les contraintes physiques et la fonction objectif.
+
+% ========================================== %
+\subsection{Paramètres et Variables}
+
+\subsubsection{Paramètres du système}
+
+\paragraph{Paramètres statiques}
 \begin{itemize}
-    \item \textbf{$nbImages$  $(n)$} : nombre total d'images.
-    \item \textbf{$nbInstruments$} : nombre d'appareils à bord du satellite. Içi toujours égal à 3:
+    \item \textbf{$N$} (\texttt{nbImages}) : nombre total de commandes d'images en compétition.
+    \item \textbf{$M$} (\texttt{nbInstruments}) : nombre d'instruments optiques à bord du satellite (ici $M=3$) :
     \begin{itemize}
-        \item $0$ pour l'instrument avant
-        \item $1$ pour l'instrument du milieu (nidar)
-        \item $2$ pour l'instrument arrière
+        \item $j = 0$ : instrument avant ;
+        \item $j = 1$ : instrument du milieu (nadir) ;
+        \item $j = 2$ : instrument arrière.
     \end{itemize}
-    
-    \item \textbf{$TY_i$} : Type de l'image:
+    \item \textbf{$TY_i$} : type de l'image $i \in \{0, \dots, N-1\}$ :
     \begin{itemize}
-        \item mono: une seule image
-        \item stéréo: deux prises, une avec l'instrument avant et une avec l'instrument arrière
+        \item $1$ (mono) : nécessite une seule prise de vue par n'importe quel instrument ;
+        \item $2$ (stéréo) : nécessite deux prises de vue simultanées exclusives (par les instruments avant et arrière).
     \end{itemize}
-    \item \textbf{$PA_i$} : gain effectué par image $i$.
-    \item \textbf{$PM_i$} : mémoire nécessaire à la production de l'image $i$.
-    \item \textbf{$PM_{max}$} : capacité maximale de mémoire.
-    \item \textbf{$DD_{i,j}$} : début de la période d'acquisition de l'image $i$ par l'instrument $j$.
-    \item \textbf{$AN_{i,j}$} : angle nécessaire du miroir de l'instrument $j$ pour l'image $i$.
-    \item \textbf{$DU$} : durée d'une prise de vue.
-    \item \textbf{$VI$} : vitesse du miroir (pivoter) de chaque instrument.
+    \item \textbf{$PA_i$} : gain financier (ou prix de vente) espéré si l'image $i$ est acquise avec succès.
+    \item \textbf{$PM_i$} : volume de mémoire consommé par l'image $i$ (cette valeur est déjà doublée dans les données pour les images de type stéréo).
+    \item \textbf{$PM_{\max}$} : capacité maximale de stockage mémoire du satellite.
+    \item \textbf{$DD_{i,j}$} : date de début de l'acquisition de l'image $i$ si elle est affectée à l'instrument $j$ (exprimée en secondes).
+    \item \textbf{$AN_{i,j}$} : angle de dépointage latéral du miroir de l'instrument $j$ requis pour viser l'image $i$ (exprimé en degrés).
+    \item \textbf{$DU$} : durée fixe d'une prise de vue (exprimée en secondes).
+    \item \textbf{$VI$} : vitesse angulaire de rotation des miroirs (exprimée en degrés par seconde).
 \end{itemize}
 
-\subsubsection{Paramètres d'incertitude}
-
+\paragraph{Paramètres liés à l'incertitude}
 \begin{itemize}
-    \item $ProbaInf_i$ et $ProbaSup_i$ : bornes de l'interballe de probabilités de présence de nuages lors de la capture de l'image $i$.  
-    \item $Failure_i$ : probabilité de panne de l'instrument $i$.
+    \item \textbf{$[p_i^{\inf}, p_i^{\sup}]$} (\texttt{ProbaInf\_i}, \texttt{ProbaSup\_i}) : bornes inférieure et supérieure de l'intervalle de probabilité de présence de nuages sur la zone ciblée par l'image $i$.  
+    \item \textbf{$Failure_j$} : probabilité de défaillance matérielle (panne) de l'instrument $j$.
 \end{itemize}
 
-\subsection{Variables de décision}
+\subsubsection{Variables de décision}
 
+Nous introduisons deux ensembles de variables binaires pour modéliser les choix d'acquisition du satellite :
 \begin{itemize}
-    \item $selection_i$ : variable binaire qui indique si la commande de l'image $i$ est sélectionnée pour être réalisée.
-    
-    \item $assignedTo_{i,j}$ : variable binaire qui indique a quel instrument $j$ est confié la prise de l'image $i$.
+    \item \textbf{$x_i \in \{0, 1\}$} (\texttt{selection\_i}) : variable de sélection valant $1$ si la commande de l'image $i$ est retenue dans le plan d'acquisition final, et $0$ sinon.
+    \item \textbf{$y_{i,j} \in \{0, 1\}$} (\texttt{assignedTo\_i\_j}) : variable d'affectation valant $1$ si la capture de l'image $i$ est physiquement confiée à l'instrument $j$, et $0$ sinon.
 \end{itemize}
 
 
+% ========================================== %
+\subsection{Modélisation des Contraintes}
 
+\subsubsection{Capacité Mémoire}
 
+La quantité totale de mémoire consommée par les images effectivement retenues dans le plan ne doit pas excéder la capacité maximale disponible à bord du satellite ($PM_{\max}$). En utilisant notre variable de décision $x_i$, cette contrainte se modélise par l'inéquation linéaire suivante :
 
+$$ \sum_{i=0}^{N-1} PM_i \cdot x_i \le PM_{\max} $$
 
-
-
-%===================================================================================%
-\section{Contraintes}
-
-%[][][][][][][][][][][][][][][][][][][][][][][]%
-\subsection{Mémoire}
-
-La quantité totale de mémoire utilisée par les images retenuues ne peut pas dépasser la mémoire maximale disponible à bord du satellite ($PM_{max}$). 
-
-$$\sum_{i=0}^{n-1} PM_i \cdot \text{selection}_i \le PM_{max}$$
-
-L'implémentation python pour cette contrainte est la suivante:
+L'implémentation Python correspondante via l'API SCIP est la suivante :
 
 \begin{lstlisting}[language=Python, caption=Contrainte de mémoire]
-mymodel.addCons(quicksum(PM[i] * selection[i] for i in range(nbImages)) <= PMmax,
-                name="capacite_memoire")      
+mymodel.addCons(
+    quicksum(PM[i] * selection[i] for i in range(nbImages)) <= PMmax,
+    name="capacite_memoire"
+)      
 \end{lstlisting}
 
+\subsubsection{Non-chevauchement et Exclusivité temporelle}
 
-%[][][][][][][][][][][][][][][][][][][][][][][]%
-\subsection{Non-chevauchement et Exclusivité}
+Un instrument doit pivoter son miroir avant de passer d'une image à l'autre. Si l'écart temporel entre deux prises de vue sur un même instrument est trop court pour couvrir la durée d'acquisition ($DU$) et le temps de dépointage du miroir, alors les deux images se chevauchent physiquement.
 
-Un instrument doit pivoter son miroir avant de passer d’une image à l’autre. Si deux
-images sont programmées trop près l’une de l’autre sur le même instrument, ce temps
-de pivot n’a pas le temps de s’écouler : impossible de les confier toutes les deux à cet
-instrument.
+Afin de formuler cette contrainte de manière purement linéaire (sans division), le temps est multiplié par la vitesse angulaire $VI$, ramenant ainsi l'analyse dans le domaine angulaire (en degrés). 
 
+Pour tout instrument $j \in \{0, 1, 2\}$ et pour toute paire d'images $(i_1, i_2)$ avec $0 \le i_1 < i_2 < N$ :
+Si la condition de conflit cinématique suivante est vérifiée :
+$$ \vert DD_{i_1, j} - DD_{i_2, j} \vert \cdot VI < DU \cdot VI + \vert AN_{i_1, j} - AN_{i_2, j} \vert $$
 
-$$\forall j \in \{0, 1, 2\}, \quad \forall (i_1, i_2) \text{ tels que } 0 \le i_1 < i_2 < n $$
-$$\vert{}DD_{i_1, j} - DD_{i_2, j}\vert{} \cdot VI < DU \cdot VI + \vert{}AN_{i_1, j} - AN_{i_2, j}\vert{} \implies \text{assignedTo}_{i_1, j} + \text{assignedTo}_{i_2, j} \le 1$$
+Alors, le modèle génère une contrainte d'exclusion empêchant l'affectation simultanée de ces deux images à l'instrument $j$ :
+$$ y_{i_1, j} + y_{i_2, j} \le 1 $$
 
-Cette contrainte était déjà implémentée comme suit:
-
-\begin{lstlisting}[language=Python, caption=Contrainte non chevauchement]
+\begin{lstlisting}[language=Python, caption=Contrainte de non-chevauchement]
 for ima1, ima2 in product(range(nbImages), range(nbImages)):
     if ima1 < ima2:
         for ins in range(nbInstruments):
-            if abs(DD[ima1][ins] - DD[ima2][ins]) * VI < 
-                DU * VI + abs(AN[ima1][ins] - AN[ima2][ins]):
-                    mymodel.addCons(assignedTo[ima1][ins] + assignedTo[ima2][ins] <= 1,                          name=f"non_chevauchement_{ima1}_{ima2}_{ins}")   
+            if abs(DD[ima1][ins] - DD[ima2][ins]) * VI < \
+               DU * VI + abs(AN[ima1][ins] - AN[ima2][ins]):
+                mymodel.addCons(
+                    assignedTo[ima1][ins] + assignedTo[ima2][ins] <= 1,
+                    name=f"non_chevauchement_{ima1}_{ima2}_{ins}"
+                )   
 \end{lstlisting}
 
+\textit{Remarque sur l'exclusivité :} La contrainte stipulant qu'un instrument ne peut réaliser deux acquisitions simultanément est logiquement absorbée par la contrainte de non-chevauchement (un écart de temps nul entraîne nécessairement un conflit).
 
-La contrainte d'exclusivité n'est pas nécessaire. Ceçi est précisé sur le sujet (diapo14): \textit{"La contrainte 4 [d'exclusivité] est en fait impliquée par la contrainte 2 [de non-chevauchement] : deux acquisitions
-simultanées se chevauchent nécessairement"}.
+\subsubsection{Cohérence des types de prises de vue (Mono et Stéréo)}
 
-%[][][][][][][][][][][][][][][][][][][][][][][]%
-\subsection{Stéreo}
+Il est impératif de contraindre les affectations physiques ($y_{i,j}$) en fonction du choix global de sélection ($x_i$) et du type de l'image ($TY_i$).
 
-Pour les images deux catégories sont possibles: les images mono $TY = 1$ et les images stéréo $TY=2$. Il nous faut différencier les deux, car pour la première il s'agit d'une simple prise par n'importe quel instrument, mais pour la deuxième il s'agit d'une capture double, ne pouvant pas être faite par le nidar ($Instrument$ 1).
+\paragraph{Cas d'une image Mono ($TY_i = 1$) :} 
+$$ \forall i \text{ tel que } TY_i = 1, \quad \sum_{j=0}^{2} y_{i, j} = x_i $$
 
-cas mono: 
-
-$$ \forall i \in \{0, \dots, n-1\}\quad\quad \sum_{j=0}^{2} \text{assignedTo}_{i, j} = \text{selection}_i  $$
-
-cas stéréo:
-
-$$
-\forall i \in \{0, \dots, n-1\} \quad
+\paragraph{Cas d'une image Stéréo ($TY_i = 2$) :} 
+$$ 
+\forall i \text{ tel que } TY_i = 2, \quad
 \begin{cases}
-    \begin{aligned}
-        \text{assignedTo}_{i, 0} &= \text{selection}_i \\
-        \text{assignedTo}_{i, 2} &= \text{selection}_i \\
-        \text{assignedTo}_{i, 1} &= 0
-    \end{aligned}
+    y_{i, 0} = x_i \\
+    y_{i, 2} = x_i \\
+    y_{i, 1} = 0
 \end{cases}
 $$
 
-Avec ces formules, l'implémentation effectuée est la suivante:
-
-\begin{lstlisting}[language=Python, caption=Contrainte de distinction d'images]
+\begin{lstlisting}[language=Python, caption=Contrainte de liaison selon le type d'image]
 for i in range(nbImages):
     if TY[i] == 1:
         mymodel.addCons(
             quicksum(assignedTo[i][j] for j in range(nbInstruments)) == selection[i],
-            name="mono_affectation_" + str(i)
+            name=f"mono_affectation_{i}"
         )
     elif TY[i] == 2:
-        mymodel.addCons(assignedTo[i][0] == selection[i], name="stereo_avant_" + str(i))
-        mymodel.addCons(assignedTo[i][2] == selection[i], name="stereo_arriere_" + str(i))
-        mymodel.addCons(assignedTo[i][1] == 0, name="stereo_nadir_interdit_" + str(i))  
+        mymodel.addCons(assignedTo[i][0] == selection[i], name=f"stereo_avant_{i}")
+        mymodel.addCons(assignedTo[i][2] == selection[i], name=f"stereo_arriere_{i}")
+        mymodel.addCons(assignedTo[i][1] == 0, name=f"stereo_nadir_interdit_{i}")  
 \end{lstlisting}
 
 
+% ========================================== %
+\subsubsection{Choix du critère de décision}
+Face à l'imprécision des probabilités météorologiques, définies par l'intervalle $[p_i^{\inf}, p_i^{\sup}]$, deux attitudes face au risque sont principalement étudiées dans notre modèle :
+\begin{itemize}
+    \item Le \textbf{critère Optimiste (Maximax)} : il suppose les conditions les plus clémentes possibles. Le décideur évalue le risque de nuages par sa borne inférieure $p_i^{\inf}$.
+    \item Le \textbf{critère Pessimiste (Maximin de Wald)} : il envisage le pire scénario. Le décideur évalue le risque de nuages par sa borne supérieure $p_i^{\sup}$ afin de garantir et sécuriser un gain minimal attendu.
+\end{itemize}
 
+\subsubsection{Formulation de l'espérance de gain}
+Sous l'hypothèse que les pannes matérielles sont indépendantes entre les différents instruments, et que l'espérance globale du gain est la somme des espérances individuelles, la fonction objectif se généralise pour les deux critères. 
 
-
-
-%===================================================================================%
-\section{Fonction Objectif}
-
-Notre but est de maximiser les "gains" des images, donc de prendre d'abord les images qui nous rapportent le plus $PA_i$. Sous incertitude, chaque image à des chances de ne pas être de qualité (et donc rejetée) à cause de la météo. Il est aussi possible que l'instrument tombe en panne. Avec ces facteurs, notre fonction objectif est la suivante:
+Soit $p_i^*$ la probabilité de couverture nuageuse retenue pour l'image $i$ ($p_i^* = p_i^{\inf}$ en mode optimiste, et $p_i^* = p_i^{\sup}$ en mode pessimiste). La fonction s'écrit :
 
 \begin{equation}
 \begin{aligned}
-\max \quad & \sum_{\substack{i=0 \\ TY_i = 1}}^{n-1} \sum_{j=0}^{2} PA_i \cdot (1 - ProbaInf_i) \cdot (1 - Failure_j) \cdot \text{assignedTo}_{i, j} \\
-& + \sum_{\substack{i=0 \\ TY_i = 2}}^{n-1} PA_i \cdot (1 - ProbaInf_i) \cdot (1 - Failure_0) \cdot (1 - Failure_2) \cdot \text{selection}_i
+\max \quad & \sum_{\substack{i=0 \\ TY_i = 1}}^{N-1} \sum_{j=0}^{2} PA_i \cdot (1 - p_i^*) \cdot (1 - Failure_j) \cdot y_{i, j} \\
+& + \sum_{\substack{i=0 \\ TY_i = 2}}^{N-1} PA_i \cdot (1 - p_i^*) \cdot (1 - Failure_0) \cdot (1 - Failure_2) \cdot x_i
 \end{aligned}
 \end{equation}
 
-\vspace{10}
+Dans notre implémentation Python (disponible sur notre dépôt GitHub \url{https://github.com/AtlasDelight/SPOT5_CASE_STUDY}), un paramètre \texttt{mode} permet de basculer dynamiquement entre ces deux stratégies en sélectionnant la liste de probabilités adéquate (\texttt{ProbaInf} ou \texttt{ProbaSup}) :
 
-\textbf{Içi nous nous basons sous le point de vue Optimiste. Les autres points de vue sont détaillés dans notre code.}
-
-\vspace{25}
-L'implémentation effectué est donc la suivante:
-
-\begin{lstlisting}[language=Python, caption=Fonction Objectif]
+\begin{lstlisting}[language=Python, caption={Fonction Objectif unifiée paramétrable par la variable \texttt{mode} (optimiste/pessimiste)}]
 obj_terms = []
 for i in range(nbImages):
-    proba_succes_meteo = 1.0 - ProbaInf[i]
+    # Sélection de la probabilité météo selon le critère de décision
+    if mode == "optimiste":
+        proba_meteo = 1.0 - ProbaInf[i]
+    else: # mode == "pessimiste"
+        proba_meteo = 1.0 - ProbaSup[i]
+
+    # Calcul de l'espérance de gain selon le type d'image
     if TY[i] == 1:
         for j in range(nbInstruments):
-            gain = PA[i] * proba_succes_meteo * (1.0 - Failure[j])
+            gain = PA[i] * proba_meteo * (1.0 - Failure[j])
             obj_terms.append(gain * assignedTo[i][j])
+            
     elif TY[i] == 2:
-        gain = PA[i] * proba_succes_meteo * (1.0 - Failure[0]) * (1.0 - Failure[2])
+        gain = PA[i] * proba_meteo * (1.0 - Failure[0]) * (1.0 - Failure[2])
         obj_terms.append(gain * selection[i])
 
 mymodel.setObjective(quicksum(obj_terms), sense='maximize')  
@@ -278,33 +280,187 @@ mymodel.setObjective(quicksum(obj_terms), sense='maximize')
 
 
 %===================================================================================%
-\section{Résultats}
+\section{Expérimentations et Analyse des Résultats}
 
-Voiçi les résultats obenus pour chaque fichier selon la philosophie choisit.
+Cette section présente les résultats obtenus par le solveur SCIP sur les différents jeux de données. L'analyse vise à comprendre le comportement du modèle face aux contraintes physiques et à comparer l'impact des attitudes décisionnelles face au risque.
 
-\vspace{10}
+\subsection{Validation sur les jeux d'essai (spotProba 1, 2 et 3)}
+
+Les trois premiers jeux de données sont des instances miniatures de 3 images (2 mono, 1 stéréo) conçues pour valider la logique des contraintes matérielles. Sur ces jeux, l'absence d'incertitude sévère fait que les critères optimistes et pessimistes renvoient rigoureusement les mêmes affectations.
+
+\begin{table}[h!]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|c|c|l|}
+        \hline
+        \textbf{Jeu} & \textbf{Gain Espéré} & \textbf{Affectations (Communes aux modes Optimiste et Pessimiste)} \\
+        \hline
+        \texttt{spotProba1} & 70.0 & \begin{tabular}[c]{@{}l@{}}
+            - Image 0 (Mono) assignée à 1 (début à 230) \\ 
+            - Image 1 (Stéréo) assignée à 0 (début à 150) et 2 (début à 350) \\ 
+            - Image 2 (Mono) assignée à 0 (début à 220)
+        \end{tabular} \\
+        \hline
+        \texttt{spotProba2} & 60.0 & \begin{tabular}[c]{@{}l@{}}
+            - Image 1 (Stéréo) assignée à 0 (début à 150) et 2 (début à 350) \\ 
+            - Image 2 (Mono) assignée à 0 (début à 220) \\
+            \textit{(Image 0 rejetée pour cause de mémoire insuffisante)}
+        \end{tabular} \\
+        \hline
+        \texttt{spotProba3} & 60.0 & \begin{tabular}[c]{@{}l@{}}
+            - Image 1 (Stéréo) assignée à 0 (début à 150) et 2 (début à 350) \\ 
+            - Image 2 (Mono) assignée à 1 (début à 320) \\
+            \textit{(Image 0 rejetée pour cause de conflit temporel)}
+        \end{tabular} \\
+        \hline
+    \end{tabular}
+    \caption{Plans d'acquisition détaillés sur les jeux de validation[cite: 25]}
+\end{table}
+
+\subsection{Scénario Nominal : \texttt{spotProba4} (20 images)}
+
+Le fichier \texttt{spotProba4} simule une situation avec 20 commandes où les instruments sont totalement fiables (probabilité de panne nulle). Seul le risque météorologique différencie les décisions. Voici l'intégralité des affectations générées par le modèle pour les deux approches :
+
+\textbf{Plan d'acquisition complet sur spotProba4 (Optimiste et Pessimiste) :}
+\begin{verbatim}
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba4 | MODE : OPTIMISTE
+======================================================================
+Problème résolu, valeur de l'objectif 400.0
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image3 (Type 2) selectionnée et assignée à 0 (debut à 200)
+Image3 (Type 2) selectionnée et assignée à 2 (debut à 400)
+Image5 (Type 1) selectionnée et assignée à 1 (debut à 330)
+Image6 (Type 1) selectionnée et assignée à 0 (debut à 250)
+Image8 (Type 1) selectionnée et assignée à 0 (debut à 290)
+Image9 (Type 1) selectionnée et assignée à 1 (debut à 400)
+Image12 (Type 1) selectionnée et assignée à 1 (debut à 430)
+Image13 (Type 2) selectionnée et assignée à 0 (debut à 400)
+Image13 (Type 2) selectionnée et assignée à 2 (debut à 600)
+Image14 (Type 1) selectionnée et assignée à 1 (debut à 520)
+Image16 (Type 1) selectionnée et assignée à 0 (debut à 450)
+Image18 (Type 1) selectionnée et assignée à 1 (debut à 570)
+Image19 (Type 1) selectionnée et assignée à 0 (debut à 500)
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba4 | MODE : PESSIMISTE
+======================================================================
+Problème résolu, valeur de l'objectif 333.0
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image4 (Type 1) selectionnée et assignée à 1 (debut à 320)
+Image5 (Type 1) selectionnée et assignée à 0 (debut à 230)
+Image6 (Type 1) selectionnée et assignée à 1 (debut à 350)
+Image8 (Type 1) selectionnée et assignée à 0 (debut à 290)
+Image9 (Type 1) selectionnée et assignée à 1 (debut à 400)
+Image10 (Type 1) selectionnée et assignée à 2 (debut à 500)
+Image12 (Type 1) selectionnée et assignée à 0 (debut à 330)
+Image14 (Type 1) selectionnée et assignée à 0 (debut à 420)
+Image15 (Type 1) selectionnée et assignée à 1 (debut à 530)
+Image16 (Type 1) selectionnée et assignée à 0 (debut à 450)
+Image18 (Type 1) selectionnée et assignée à 1 (debut à 570)
+Image19 (Type 1) selectionnée et assignée à 0 (debut à 500)
+\end{verbatim}
+
+\textbf{Analyse de l'écart Optimiste / Pessimiste :} 
+Le passage d'un critère optimiste à pessimiste modifie structurellement le plan d'acquisition. Dans l'approche pessimiste, le solveur rejette catégoriquement toutes les images stéréo (abandon des images 3 et 13). Face au pire cas météorologique ($ProbaSup$), le gain espéré de ces stéréos ne justifie plus leur double consommation mémoire et temporelle. Le modèle préfère sécuriser son gain en allouant cette mémoire à des images mono jugées plus sûres (comme l'image 4 et l'image 10, cette dernière profitant de la libération de l'instrument 2).
+
+\subsection{Scénario Dégradé : \texttt{spotProba5} (40 images)}
+
+Le fichier \texttt{spotProba5} introduit une charge de 40 images et simule une probabilité de défaillance non négligeable pour l'instrument 3 (arrière).
+
+\textbf{Plan d'acquisition complet sur spotProba5 (Optimiste et Pessimiste) :}
+\begin{verbatim}
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba5 | MODE : OPTIMISTE
+======================================================================
+Problème résolu, valeur de l'objectif 678.1212
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 130)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 330)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image4 (Type 1) selectionnée et assignée à 0 (debut à 220)
+Image5 (Type 1) selectionnée et assignée à 1 (debut à 330)
+Image6 (Type 1) selectionnée et assignée à 0 (debut à 250)
+Image8 (Type 1) selectionnée et assignée à 1 (debut à 390)
+Image9 (Type 1) selectionnée et assignée à 0 (debut à 300)
+Image12 (Type 1) selectionnée et assignée à 0 (debut à 330)
+Image14 (Type 1) selectionnée et assignée à 1 (debut à 520)
+Image15 (Type 1) selectionnée et assignée à 0 (debut à 430)
+Image16 (Type 1) selectionnée et assignée à 1 (debut à 550)
+Image18 (Type 1) selectionnée et assignée à 0 (debut à 470)
+Image19 (Type 1) selectionnée et assignée à 1 (debut à 600)
+Image20 (Type 2) selectionnée et assignée à 0 (debut à 500)
+Image20 (Type 2) selectionnée et assignée à 2 (debut à 700)
+Image22 (Type 1) selectionnée et assignée à 0 (debut à 550)
+Image24 (Type 1) selectionnée et assignée à 0 (debut à 610)
+Image25 (Type 1) selectionnée et assignée à 1 (debut à 730)
+Image26 (Type 1) selectionnée et assignée à 0 (debut à 650)
+Image28 (Type 1) selectionnée et assignée à 0 (debut à 690)
+Image29 (Type 1) selectionnée et assignée à 1 (debut à 800)
+Image32 (Type 1) selectionnée et assignée à 0 (debut à 730)
+Image34 (Type 1) selectionnée et assignée à 0 (debut à 820)
+Image35 (Type 1) selectionnée et assignée à 1 (debut à 930)
+Image36 (Type 1) selectionnée et assignée à 0 (debut à 850)
+Image38 (Type 1) selectionnée et assignée à 1 (debut à 970)
+Image39 (Type 2) selectionnée et assignée à 0 (debut à 910)
+Image39 (Type 2) selectionnée et assignée à 2 (debut à 1110)
+
+======================================================================
+RESOLUTION DU JEU DE DONNEES : spotProba5 | MODE : PESSIMISTE
+======================================================================
+Problème résolu, valeur de l'objectif 553.6458
+Image0 (Type 1) selectionnée et assignée à 1 (debut à 200)
+Image1 (Type 2) selectionnée et assignée à 0 (debut à 130)
+Image1 (Type 2) selectionnée et assignée à 2 (debut à 330)
+Image2 (Type 1) selectionnée et assignée à 1 (debut à 250)
+Image4 (Type 1) selectionnée et assignée à 0 (debut à 220)
+Image5 (Type 1) selectionnée et assignée à 1 (debut à 330)
+Image6 (Type 1) selectionnée et assignée à 0 (debut à 250)
+Image8 (Type 1) selectionnée et assignée à 0 (debut à 290)
+Image9 (Type 1) selectionnée et assignée à 1 (debut à 400)
+Image11 (Type 2) selectionnée et assignée à 0 (debut à 320)
+Image11 (Type 2) selectionnée et assignée à 2 (debut à 520)
+Image12 (Type 1) selectionnée et assignée à 1 (debut à 430)
+Image14 (Type 1) selectionnée et assignée à 1 (debut à 520)
+Image15 (Type 1) selectionnée et assignée à 0 (debut à 430)
+Image16 (Type 1) selectionnée et assignée à 1 (debut à 550)
+Image18 (Type 1) selectionnée et assignée à 0 (debut à 470)
+Image19 (Type 1) selectionnée et assignée à 1 (debut à 600)
+Image20 (Type 2) selectionnée et assignée à 0 (debut à 500)
+Image20 (Type 2) selectionnée et assignée à 2 (debut à 700)
+Image22 (Type 1) selectionnée et assignée à 0 (debut à 550)
+Image24 (Type 1) selectionnée et assignée à 0 (debut à 610)
+Image25 (Type 1) selectionnée et assignée à 1 (debut à 730)
+Image26 (Type 1) selectionnée et assignée à 0 (debut à 650)
+Image28 (Type 1) selectionnée et assignée à 0 (debut à 690)
+Image29 (Type 1) selectionnée et assignée à 1 (debut à 800)
+Image32 (Type 1) selectionnée et assignée à 0 (debut à 730)
+Image34 (Type 1) selectionnée et assignée à 0 (debut à 820)
+Image35 (Type 1) selectionnée et assignée à 1 (debut à 930)
+Image36 (Type 1) selectionnée et assignée à 0 (debut à 850)
+Image38 (Type 1) selectionnée et assignée à 1 (debut à 970)
+\end{verbatim}
+
+\textbf{Déformation du plan (Impact des pannes) :}
+La défaillance de l'instrument 3 (arrière) fait chuter l'espérance mathématique de réussite des stéréos. En observant la liste complète des affectations, le plan se déforme logiquement : sur 40 images disponibles, seules 3 stéréos survivent à l'optimisation dans chaque mode (Images 1, 20 et 39 en Optimiste ; Images 1, 11 et 20 en Pessimiste). Les instruments 1 (avant) et 2 (nadir) sont quant à eux saturés de requêtes mono (24 au total) pour compenser la fragilité du matériel arrière et maximiser le gain sûr.
+
+\section{Conclusion}
+
+L'analyse croisée de ces expérimentations permet de tirer plusieurs enseignements majeurs sur le comportement de notre modèle d'optimisation face à l'incertitude :
 
 \begin{itemize}
-    \item \textbf{spotProba4.py}
-    \begin{itemize}
-        \item Optimiste:
-        \item Pessimiste:
-        \item Partiel:
-    \end{itemize}
-
-    \vspace{10}
-
-    \item \textbf{spotProba5.py}
-    \begin{itemize}
-        \item Optimiste:
-        \item Pessimiste:
-        \item Partiel:
-    \end{itemize}
+    \item \textbf{Arbitrage entre rentabilité et faisabilité physique :} 
+    Le modèle démontre une grande efficacité pour résoudre les conflits combinatoires purs. Lorsque la mémoire sature ou que les fenêtres temporelles se chevauchent, le solveur écarte naturellement les images dont le ratio gain/encombrement est le moins favorable. La traduction du temps de dépointage des miroirs en contraintes linéaires s'avère parfaitement fonctionnelle.
     
+    \item \textbf{Sensibilité à l'attitude face au risque (Météo) :} 
+    Le passage d'une vision optimiste à une vision pessimiste illustre parfaitement le concept d'aversion au risque. Le critère pessimiste  pénalise lourdement les acquisitions coûteuses en ressources (comme les stéréos). Le modèle sacrifie alors des gains potentiels élevés mais incertains, au profit d'une multitude de petits gains (images mono) considérés comme plus sûrs.
+    
+    \item \textbf{Résilience et adaptation aux pannes matérielles :} 
+    Le scénario dégradé (\texttt{spotProba5}) met en évidence la capacité du modèle à reconfigurer dynamiquement le plan d'acquisition. Plutôt que de conserver des images stéréo dont l'espérance de réussite s'effondre à cause de la défaillance de l'instrument arrière, le solveur réalloue massivement l'espace mémoire et le temps disponible vers les instruments avant et nadir pour traiter un maximum de requêtes simples.
 \end{itemize}
 
-
-
-
+En conclusion, la formulation sous forme de Programme Linéaire en Nombres Entiers (PLNE) permet non seulement de respecter strictement les limites physiques du satellite SPOT 5, mais offre surtout un outil d'aide à la décision robuste, capable d'adapter sa stratégie d'acquisition en fonction de la politique de gestion des risques (météo et matériel) choisie par l'opérateur.
 
 \end{document}
