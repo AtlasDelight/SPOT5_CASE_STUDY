@@ -1,21 +1,51 @@
-\documentclass{article}
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{graphicx}
-\usepackage{xcolor}
+\documentclass[8pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage[a4paper,margin=4cm]{geometry}
+\usepackage[font=footnotesize]{caption}
+\usepackage{tabularx}
+
+\usepackage[french]{babel} 
+\usepackage[T1]{fontenc}
+
+\usepackage{amsfonts}
 \usepackage{hyperref}
-\usepackage{stmaryrd}
-\usepackage{svg}
-\usepackage{float}
-\usepackage{algorithm}         % float 'algorithm'
-\usepackage{algpseudocode}    
+
+\usepackage[title, titletoc]{appendix}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Définition des couleurs pour le style Python
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstset{style=mystyle}
 
 
-\usepackage[
-backend=biber,
-style=alphabetic,
-sorting=ynt
-]{biblatex}
-\addbibresource{ref.bib}
 
 \DeclareMathOperator*{\argmin}{argmin} % no space, limits underneath in displays
 
@@ -34,9 +64,247 @@ sorting=ynt
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{logo.png} \\
+        \vspace{1cm}
+        \textsc{\LARGE Université Toulouse}\\[1.5cm]
 
+        \textsc{\Large ia et décision}\\[0.5cm]
+
+        % Title
+        \rule{\linewidth}{0.5mm} \\[0.4cm]
+        { \huge \bfseries Prises de vue satellitaires}\\[0.4cm]
+        \rule{\linewidth}{0.5mm} \\[1.5cm]
+
+        \vspace{2cm}
+
+        \textbf{Groupe :}\\[0.5cm]
+        MUGISHA Axcel\\
+        HERNANDEZ Llobet Jan\\
+        DECHAMBOST Telmo De Lepin
+
+        \vspace{2cm}
+        
+        \vfill
+
+        \vspace{1cm}
+
+        {\large }
+    \end{center}
+\end{titlepage}
+
+
+
+%===================================================================================%
 \section{Introduction}
 
-L'objectif de cette étude est de modéliser mathématiquement, sous la forme d'un programme linéaire, le plan quotidien d'acquisition d'images du satellite d'observation terrestre SPOT 5 afin de maximiser le gain financier espéré, en respectant les strictes contraintes physiques du système (capacité mémoire, cinématique des miroirs) tout en intégrant les probabilités imprécises liées aux risques météorologiques et aux pannes matérielles.
+    L'objectif de cette étude est de modéliser mathématiquement, sous la forme d'un programme linéaire, le plan quotidien d'acquisition d'images du satellite d'observation terrestre SPOT 5 afin de maximiser le gain financier espéré, en respectant les strictes contraintes physiques du système (capacité mémoire, cinématique des miroirs) tout en intégrant les probabilités imprécises liées aux risques météorologiques et aux pannes matérielles.
+
+
+
+%===================================================================================%
+\newpage
+\section{Implémentation des données}
+
+\subsection{Paramètres}
+\subsubsection{Paramètres statiques}
+
+\begin{itemize}
+    \item \textbf{$nbImages$  $(n)$} : nombre total d'images.
+    \item \textbf{$nbInstruments$} : nombre d'appareils à bord du satellite. Içi toujours égal à 3:
+    \begin{itemize}
+        \item $0$ pour l'instrument avant
+        \item $1$ pour l'instrument du milieu (nidar)
+        \item $2$ pour l'instrument arrière
+    \end{itemize}
+    
+    \item \textbf{$TY_i$} : Type de l'image:
+    \begin{itemize}
+        \item mono: une seule image
+        \item stéréo: deux prises, une avec l'instrument avant et une avec l'instrument arrière
+    \end{itemize}
+    \item \textbf{$PA_i$} : gain effectué par image $i$.
+    \item \textbf{$PM_i$} : mémoire nécessaire à la production de l'image $i$.
+    \item \textbf{$PM_{max}$} : capacité maximale de mémoire.
+    \item \textbf{$DD_{i,j}$} : début de la période d'acquisition de l'image $i$ par l'instrument $j$.
+    \item \textbf{$AN_{i,j}$} : angle nécessaire du miroir de l'instrument $j$ pour l'image $i$.
+    \item \textbf{$DU$} : durée d'une prise de vue.
+    \item \textbf{$VI$} : vitesse du miroir (pivoter) de chaque instrument.
+\end{itemize}
+
+\subsubsection{Paramètres d'incertitude}
+
+\begin{itemize}
+    \item $ProbaInf_i$ et $ProbaSup_i$ : bornes de l'interballe de probabilités de présence de nuages lors de la capture de l'image $i$.  
+    \item $Failure_i$ : probabilité de panne de l'instrument $i$.
+\end{itemize}
+
+\subsection{Variables de décision}
+
+\begin{itemize}
+    \item $selection_i$ : variable binaire qui indique si la commande de l'image $i$ est sélectionnée pour être réalisée.
+    
+    \item $assignedTo_{i,j}$ : variable binaire qui indique a quel instrument $j$ est confié la prise de l'image $i$.
+\end{itemize}
+
+
+
+
+
+
+
+
+%===================================================================================%
+\section{Contraintes}
+
+%[][][][][][][][][][][][][][][][][][][][][][][]%
+\subsection{Mémoire}
+
+La quantité totale de mémoire utilisée par les images retenuues ne peut pas dépasser la mémoire maximale disponible à bord du satellite ($PM_{max}$). 
+
+$$\sum_{i=0}^{n-1} PM_i \cdot \text{selection}_i \le PM_{max}$$
+
+L'implémentation python pour cette contrainte est la suivante:
+
+\begin{lstlisting}[language=Python, caption=Contrainte de mémoire]
+mymodel.addCons(quicksum(PM[i] * selection[i] for i in range(nbImages)) <= PMmax,
+                name="capacite_memoire")      
+\end{lstlisting}
+
+
+%[][][][][][][][][][][][][][][][][][][][][][][]%
+\subsection{Non-chevauchement et Exclusivité}
+
+Un instrument doit pivoter son miroir avant de passer d’une image à l’autre. Si deux
+images sont programmées trop près l’une de l’autre sur le même instrument, ce temps
+de pivot n’a pas le temps de s’écouler : impossible de les confier toutes les deux à cet
+instrument.
+
+
+$$\forall j \in \{0, 1, 2\}, \quad \forall (i_1, i_2) \text{ tels que } 0 \le i_1 < i_2 < n $$
+$$\vert{}DD_{i_1, j} - DD_{i_2, j}\vert{} \cdot VI < DU \cdot VI + \vert{}AN_{i_1, j} - AN_{i_2, j}\vert{} \implies \text{assignedTo}_{i_1, j} + \text{assignedTo}_{i_2, j} \le 1$$
+
+Cette contrainte était déjà implémentée comme suit:
+
+\begin{lstlisting}[language=Python, caption=Contrainte non chevauchement]
+for ima1, ima2 in product(range(nbImages), range(nbImages)):
+    if ima1 < ima2:
+        for ins in range(nbInstruments):
+            if abs(DD[ima1][ins] - DD[ima2][ins]) * VI < 
+                DU * VI + abs(AN[ima1][ins] - AN[ima2][ins]):
+                    mymodel.addCons(assignedTo[ima1][ins] + assignedTo[ima2][ins] <= 1,                          name=f"non_chevauchement_{ima1}_{ima2}_{ins}")   
+\end{lstlisting}
+
+
+La contrainte d'exclusivité n'est pas nécessaire. Ceçi est précisé sur le sujet (diapo14): \textit{"La contrainte 4 [d'exclusivité] est en fait impliquée par la contrainte 2 [de non-chevauchement] : deux acquisitions
+simultanées se chevauchent nécessairement"}.
+
+%[][][][][][][][][][][][][][][][][][][][][][][]%
+\subsection{Stéreo}
+
+Pour les images deux catégories sont possibles: les images mono $TY = 1$ et les images stéréo $TY=2$. Il nous faut différencier les deux, car pour la première il s'agit d'une simple prise par n'importe quel instrument, mais pour la deuxième il s'agit d'une capture double, ne pouvant pas être faite par le nidar ($Instrument$ 1).
+
+cas mono: 
+
+$$ \forall i \in \{0, \dots, n-1\}\quad\quad \sum_{j=0}^{2} \text{assignedTo}_{i, j} = \text{selection}_i  $$
+
+cas stéréo:
+
+$$
+\forall i \in \{0, \dots, n-1\} \quad
+\begin{cases}
+    \begin{aligned}
+        \text{assignedTo}_{i, 0} &= \text{selection}_i \\
+        \text{assignedTo}_{i, 2} &= \text{selection}_i \\
+        \text{assignedTo}_{i, 1} &= 0
+    \end{aligned}
+\end{cases}
+$$
+
+Avec ces formules, l'implémentation effectuée est la suivante:
+
+\begin{lstlisting}[language=Python, caption=Contrainte de distinction d'images]
+for i in range(nbImages):
+    if TY[i] == 1:
+        mymodel.addCons(
+            quicksum(assignedTo[i][j] for j in range(nbInstruments)) == selection[i],
+            name="mono_affectation_" + str(i)
+        )
+    elif TY[i] == 2:
+        mymodel.addCons(assignedTo[i][0] == selection[i], name="stereo_avant_" + str(i))
+        mymodel.addCons(assignedTo[i][2] == selection[i], name="stereo_arriere_" + str(i))
+        mymodel.addCons(assignedTo[i][1] == 0, name="stereo_nadir_interdit_" + str(i))  
+\end{lstlisting}
+
+
+
+
+
+
+%===================================================================================%
+\section{Fonction Objectif}
+
+Notre but est de maximiser les "gains" des images, donc de prendre d'abord les images qui nous rapportent le plus $PA_i$. Sous incertitude, chaque image à des chances de ne pas être de qualité (et donc rejetée) à cause de la météo. Il est aussi possible que l'instrument tombe en panne. Avec ces facteurs, notre fonction objectif est la suivante:
+
+\begin{equation}
+\begin{aligned}
+\max \quad & \sum_{\substack{i=0 \\ TY_i = 1}}^{n-1} \sum_{j=0}^{2} PA_i \cdot (1 - ProbaInf_i) \cdot (1 - Failure_j) \cdot \text{assignedTo}_{i, j} \\
+& + \sum_{\substack{i=0 \\ TY_i = 2}}^{n-1} PA_i \cdot (1 - ProbaInf_i) \cdot (1 - Failure_0) \cdot (1 - Failure_2) \cdot \text{selection}_i
+\end{aligned}
+\end{equation}
+
+\vspace{10}
+
+\textbf{Içi nous nous basons sous le point de vue Optimiste. Les autres points de vue sont détaillés dans notre code.}
+
+\vspace{25}
+L'implémentation effectué est donc la suivante:
+
+\begin{lstlisting}[language=Python, caption=Fonction Objectif]
+obj_terms = []
+for i in range(nbImages):
+    proba_succes_meteo = 1.0 - ProbaInf[i]
+    if TY[i] == 1:
+        for j in range(nbInstruments):
+            gain = PA[i] * proba_succes_meteo * (1.0 - Failure[j])
+            obj_terms.append(gain * assignedTo[i][j])
+    elif TY[i] == 2:
+        gain = PA[i] * proba_succes_meteo * (1.0 - Failure[0]) * (1.0 - Failure[2])
+        obj_terms.append(gain * selection[i])
+
+mymodel.setObjective(quicksum(obj_terms), sense='maximize')  
+\end{lstlisting}
+
+
+%===================================================================================%
+\section{Résultats}
+
+Voiçi les résultats obenus pour chaque fichier selon la philosophie choisit.
+
+\vspace{10}
+
+\begin{itemize}
+    \item \textbf{spotProba4.py}
+    \begin{itemize}
+        \item Optimiste:
+        \item Pessimiste:
+        \item Partiel:
+    \end{itemize}
+
+    \vspace{10}
+
+    \item \textbf{spotProba5.py}
+    \begin{itemize}
+        \item Optimiste:
+        \item Pessimiste:
+        \item Partiel:
+    \end{itemize}
+    
+\end{itemize}
+
+
+
+
+
 \end{document}
