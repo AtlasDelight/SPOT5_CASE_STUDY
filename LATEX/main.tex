@@ -259,13 +259,11 @@ Dans notre implémentation Python (disponible sur notre dépôt GitHub \url{http
 \begin{lstlisting}[language=Python, caption={Fonction Objectif unifiée paramétrable par la variable \texttt{mode} (optimiste/pessimiste)}]
 obj_terms = []
 for i in range(nbImages):
-    # Sélection de la probabilité météo selon le critère de décision
     if mode == "optimiste":
         proba_meteo = 1.0 - ProbaInf[i]
-    else: # mode == "pessimiste"
+    else:
         proba_meteo = 1.0 - ProbaSup[i]
 
-    # Calcul de l'espérance de gain selon le type d'image
     if TY[i] == 1:
         for j in range(nbInstruments):
             gain = PA[i] * proba_meteo * (1.0 - Failure[j])
@@ -364,7 +362,7 @@ Image19 (Type 1) selectionnée et assignée à 0 (debut à 500)
 \end{verbatim}
 
 \textbf{Analyse de l'écart Optimiste / Pessimiste :} 
-Le passage d'un critère optimiste à pessimiste modifie structurellement le plan d'acquisition. Dans l'approche pessimiste, le solveur rejette catégoriquement toutes les images stéréo (abandon des images 3 et 13). Face au pire cas météorologique ($ProbaSup$), le gain espéré de ces stéréos ne justifie plus leur double consommation mémoire et temporelle. Le modèle préfère sécuriser son gain en allouant cette mémoire à des images mono jugées plus sûres (comme l'image 4 et l'image 10, cette dernière profitant de la libération de l'instrument 2).
+Le passage d'un critère optimiste à pessimiste modifie structurellement le plan d'acquisition. Dans l'approche pessimiste, le solveur rejette catégoriquement toutes les images stéréo (abandon des images 3 et 13), ce qui donne un score de 333 (au lieu de 400 pour l'approche optimiste). Face au pire cas météorologique ($ProbaSup$), le gain espéré de ces stéréos ne justifie plus leur double consommation mémoire et temporelle. Le modèle préfère sécuriser son gain en allouant cette mémoire à des images mono jugées plus sûres (comme l'image 4 et l'image 10, cette dernière profitant de la libération de l'instrument 2).
 
 \subsection{Scénario Dégradé : \texttt{spotProba5} (40 images)}
 
@@ -444,7 +442,7 @@ Image38 (Type 1) selectionnée et assignée à 1 (debut à 970)
 \end{verbatim}
 
 \textbf{Déformation du plan (Impact des pannes) :}
-La défaillance de l'instrument 3 (arrière) fait chuter l'espérance mathématique de réussite des stéréos. En observant la liste complète des affectations, le plan se déforme logiquement : sur 40 images disponibles, seules 3 stéréos survivent à l'optimisation dans chaque mode (Images 1, 20 et 39 en Optimiste ; Images 1, 11 et 20 en Pessimiste). Les instruments 1 (avant) et 2 (nadir) sont quant à eux saturés de requêtes mono (24 au total) pour compenser la fragilité du matériel arrière et maximiser le gain sûr.
+La défaillance de l'instrument 3 (arrière) fait chuter l'espérance mathématique de réussite des stéréos. En observant la liste complète des affectations, le plan se déforme logiquement : sur 40 images disponibles, seules 3 stéréos survivent à l'optimisation dans chaque mode (Images 1, 20 et 39 en Optimiste ; Images 1, 11 et 20 en Pessimiste). Les instruments 1 (avant) et 2 (nadir) sont quant à eux saturés de requêtes mono (24 au total) pour compenser la fragilité du matériel arrière et maximiser le gain sûr. Le modèle prédit un gain minimal de 553, et allant jusqu'à 678 dans le meilleur des cas.
 
 \section{Conclusion}
 
@@ -459,6 +457,10 @@ L'analyse croisée de ces expérimentations permet de tirer plusieurs enseigneme
     
     \item \textbf{Résilience et adaptation aux pannes matérielles :} 
     Le scénario dégradé (\texttt{spotProba5}) met en évidence la capacité du modèle à reconfigurer dynamiquement le plan d'acquisition. Plutôt que de conserver des images stéréo dont l'espérance de réussite s'effondre à cause de la défaillance de l'instrument arrière, le solveur réalloue massivement l'espace mémoire et le temps disponible vers les instruments avant et nadir pour traiter un maximum de requêtes simples.
+
+    \item \textbf{Confirmation des théories du cours :}
+    Les différentes mentalités face au risque montrent içi un écart considérable qu'il faut tenir en compte. L'aversion au risque nous donne un score plus faible, mais il s'agit des gains minimes pouvant être obtenus, tandis que le point de vue joueur (optimiste) aspire à plus de gains, mais avec une plus grande incertitude. Le point de vue pessimiste représente le choix le plus adapté pour une entreprise, afin d'être rentable à coup sûr avant d'executer la liste d'actions.
+    
 \end{itemize}
 
 En conclusion, la formulation sous forme de Programme Linéaire en Nombres Entiers (PLNE) permet non seulement de respecter strictement les limites physiques du satellite SPOT 5, mais offre surtout un outil d'aide à la décision robuste, capable d'adapter sa stratégie d'acquisition en fonction de la politique de gestion des risques (météo et matériel) choisie par l'opérateur.
