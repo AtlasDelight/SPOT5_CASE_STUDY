@@ -6,10 +6,7 @@ from pyscipopt import Model, quicksum
 from itertools import product
 
 def resoudre_planification(nom_fichier, mode="pessimiste"):
-    """
-    Fonction qui charge un jeu de données et résout le problème
-    selon le mode choisi ('optimiste' ou 'pessimiste').
-    """
+
     # 1. Chargement dynamique des données
     data = importlib.import_module(nom_fichier)
     
