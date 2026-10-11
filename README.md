@@ -2,7 +2,7 @@
 
 **Description des fichiers:**
 
-• Dossier LATEX: dossier contenant le rapport sous format latex.
+• Dossier LATEX: dossier contenant le rapport sous format latex (code) et sous format pdf.
 
 
 • Dossier SCRIPTS: dossier contenant l'ensemble des fichiers python (ceux fournis ainsi que les notres). 
