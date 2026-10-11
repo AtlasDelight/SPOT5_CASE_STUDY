@@ -1,5 +1,5 @@
 # spot_solver.py
-# Fichier complété à partir de spotProbaPartial.py
+# la plus part du code vient du fichier spotProbaPartial.py, on l'a modifié pour une bonne lecture et ajout des contraintes manquantes 
 
 import importlib
 from pyscipopt import Model, quicksum
