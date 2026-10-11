@@ -10,4 +10,4 @@ Pour obtenir tous les résultats il suffit de lancer le fichier python **main.py
 
 
 
-**Utilisation de l'IA**: Nous nous sommes servies de modèles de langages en tant qu'assistants de débuggage, ainsi que pour la correction orthographique du rapport latex.
+**Utilisation de l'IA**: Nous nous sommes servies de modèles de langage en tant qu'assistants de débuggage, ainsi que pour la correction orthographique du rapport.
