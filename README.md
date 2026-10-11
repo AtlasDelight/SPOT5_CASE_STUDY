@@ -3,6 +3,8 @@
 **Description des fichiers:**
 
 • Dossier LATEX: dossier contenant le rapport sous format latex.
+
+
 • Dossier SCRIPTS: dossier contenant l'ensemble des fichiers python (ceux fournis ainsi que les notres). 
 Pour obtenir tous les résultats il suffit de lancer le fichier python **main.py**.
 
